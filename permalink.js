@@ -53,7 +53,7 @@
     [].forEach.call($('h1,h2,h3,h4,h5,h6'), function (el) {
       if (!el.id) {
         // let's make one
-        var id = (el.textContent||el.innerText).replace(/&.*?;/g, '').replace(/[^\w]/g, '').toLowerCase();
+        var id = (el.textContent||el.innerText).replace(/&.*?;/g, '').replace(/\s+/g, '-').replace(/[^\w\-]/g, '').toLowerCase();
         el.id = id;
       }
 
