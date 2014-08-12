@@ -2,6 +2,8 @@
 
   'use strict';
   var className = 'anchor';
+  var idcache = {};
+  var count = 0;
 
   function injectStyles() {
     var css = ['.anchor {',
@@ -54,12 +56,17 @@
       if (!el.id) {
         // let's make one
         var id = (el.textContent||el.innerText).replace(/&.*?;/g, '').replace(/\s+/g, '-').replace(/[^\w\-]/g, '').toLowerCase();
+        if (idcache[id]) {
+          id = id + '-' + count;
+        }
         el.id = id;
+        idcache[id] = 1;
       }
 
       var clone = anchor.cloneNode(true);
       clone.href = '#' + el.id;
       el.insertBefore(clone, el.firstChild);
+      count = count + 1;
     });
   }
 
